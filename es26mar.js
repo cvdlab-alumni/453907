@@ -61,18 +61,15 @@ var domain = DOMAIN([[0,2*PI],[0,h]])([m,n]);
 
 var cyl = drawCylinder(2,4,20,20);
 DRAW(cyl);
-COLOR([0,0,0])(cyl);
+COLOR([0,0,1])(cyl);
 
 //draw sphere
-
 function drawSphere(r,m,n){
-
-	var domain = DOMAIN([[0,2*PI],[0,PI]])([m,n]);
+	var domain = DOMAIN([[0,PI],[0,2*PI]])([m,n]);
 	var mapping = function (p) {
-		var alpha = p[0];
-		var beta = p[1]-PI/2;
-//		return [r*COS(alpha)*COS(beta),r*COS(alpha)*SIN(beta),r*SIN(alpha)];
-		return [r*COS(alpha)*COS(beta),r*COS(alpha)*SIN(beta),r*SIN(alpha)];
+		var a = p[0]-PI/2;
+		var b = p[1];
+		return [r*COS(a)*SIN(b),r*COS(a)*COS(b),r*SIN(a)];
 	};
 	var mapped = MAP(mapping)(domain);
 	return mapped;
@@ -80,4 +77,39 @@ function drawSphere(r,m,n){
 
 var s = drawSphere(2,200,200);
 DRAW(s);
-COLOR([0,0,0])(s);
+COLOR([0,1,0])(s);
+
+
+
+
+//emisgera con colori strani
+function drawSphere(r,m,n){
+
+var domain = DOMAIN([[0,PI],[0,2*PI]])([m,n]);
+	var mapping = function (p) {
+		var alpha = p[0]-PI/2;
+		var beta = p[1];
+		return [r*SIN(alpha)*COS(beta),r*SIN(alpha)*SIN(beta),r*COS(alpha)];
+	};
+	return mapped = MAP(mapping)(domain);
+}
+
+var s = drawSphere(2,200,200);
+DRAW(s);
+COLOR([1,0,0])(s);
+
+//moebiusoide
+function drawSphere(r,m,n){
+	var domain = DOMAIN([[0,PI*20],[0,20*PI]])([m,n]);
+	var mapping = function (p) {
+		var a = p[0]-PI/2;
+		var b = p[1];
+		return [r*COS(b)*COS(a),r*COS(b)*SIN(a),r*SIN(a)];
+	};
+	var mapped = MAP(mapping)(domain);
+	return mapped;
+}
+
+var s = drawSphere(2,200,200);
+DRAW(s);
+COLOR([0,1,0])(s);
