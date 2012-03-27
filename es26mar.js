@@ -113,3 +113,19 @@ function drawSphere(r,m,n){
 var s = drawSphere(2,200,200);
 DRAW(s);
 COLOR([0,1,0])(s);
+
+//draw thoroid
+function drawThor(R,r,m,n){
+	var domain = DOMAIN([[0,2*PI],[0,2*PI]])([m,n]);
+	var mapping = function (p) {
+		var q = p[0];
+		var t = p[1];
+		return [(R+r*COS(q))*SIN(t),(R+r*COS(q))*COS(t),r*SIN(q)];
+	};
+	var mapped = MAP(mapping)(domain);
+	return mapped;
+}
+
+var s = drawThor(2.5,1,200,200);
+DRAW(s);
+COLOR([1,1,0])(s);
