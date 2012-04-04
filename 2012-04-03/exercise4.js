@@ -1,5 +1,5 @@
 // sedia a sdraio
-var gradi = PI/180;
+var gradi = Math.PI/180;
 var alpha = 45*gradi;
 var piedibracciolo = SIMPLEX_GRID([[0.05],[-1,0.05,-(2-0.5),0.05],[0.65]]);
 var bracciolo = SIMPLEX_GRID([[0.05],[-1,0.05,(2-0.5),0.05],[-0.6,0.05]]);
