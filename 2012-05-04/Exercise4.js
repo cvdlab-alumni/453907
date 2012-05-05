@@ -166,7 +166,7 @@ var portaAli = STRUCT([mapPortaAli1,mapPortaAli2,mapPortaAli3,mapPortaAli4,smplx
 
 
 
-var emifusoliera = STRUCT([portaAli,vetri,mapFus1,mapFus2,mapFus3,mapFus4])
+var emifusoliera = STRUCT([vetri,COLOR([0,0,0.3]),portaAli,mapFus1,mapFus2,mapFus3,mapFus4])
 var fusoliera = STRUCT([emifusoliera,S([1])([-1])(emifusoliera)])
 //DRAW(fusoliera)
 
@@ -628,9 +628,9 @@ var ruote = STRUCT([ruota1,S([1])([-1])(ruota1)])
 
 //DRAW(ruote);
 
-var carena = COLOR([0.8,0.8,0.8])(STRUCT([stabilizzatori]))
-var black = COLOR([1,1,1])(STRUCT([elica,barreAli,barraruote]))
-var ali = COLOR([1,1,0])(STRUCT([ali]))
+var carena = STRUCT([COLOR([0,0,0.3]),stabilizzatori])
+var black = STRUCT([COLOR([0,0,0]),elica,barreAli,barraruote])
+var ali = STRUCT([COLOR([1,1,0]),ali])
 
 var aereo = STRUCT([fusoliera,carena,black,ali,ruote])
 DRAW(aereo)
