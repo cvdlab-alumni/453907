@@ -22,49 +22,29 @@ var pointsScale = function (array,x,y,z){
 
 var domain = INTERVALS(1)(50)
 
-var profiloA = [[0,0,0.54],[0,0.5,0.6],[0,0.5,0],[0,0.4,-0.6],[0,0,-0.7]]
+var profiloB = [[1.4,0,.8],[1.4,1,.75],[1.4,0.875,0.32],[1.4,.81,-.96],[1.4,.81,-.96],[1.4,0,-0.96],]
+var pBMap = NUBS(S0)(2)(genKnots(profiloB))(profiloB);
+var pB = MAP(pBMap)(domain);
+DRAW(pB)
+
+var profiloA = pointsTransl( pointsScale(profiloB,1,1/2,2/3) ,-1.4,0,0)
+//var profiloA = [[0,0,0.54],[0,0.5,0.6],[0,0.5,0],[0,0.4,-0.6],[0,0,-0.7]]
 var pAMap = NUBS(S0)(2)(genKnots(profiloA))(profiloA);
 var pA = MAP(pAMap)(domain);
 //DRAW(pA)
 
-var profiloA1 = [[1.45,0,0.54],[1.45,0.5,0.6],[1.45,0.5,0],[1.45,0.4,-0.6],[1.45,0,-0.7]]
-var pA1Map = NUBS(S0)(2)(genKnots(profiloA1))(profiloA1);
-var pA1 = MAP(pA1Map)(domain);
-//DRAW(pA1)
-
-
-var profiloA0 = [
-                 simplexn.vector.scalarMul(1/4,[-1,0,0.54]),
-                 simplexn.vector.scalarMul(1/4,[-1,0.5,0.6]),
-                 simplexn.vector.scalarMul(1/4,[-1,0.5,0]),
-                 simplexn.vector.scalarMul(1/4,[-1,0.4,-0.6]),
-                 simplexn.vector.scalarMul(1/4,[-1,0,-0.7])
-                 ]
+//trasl a z=0.25
+var profiloA0 = pointsTransl( pointsScale(profiloB,1,1/16,4/36) ,(-1.4-0.25),0,0.3)
 var pA0Map = NUBS(S0)(2)(genKnots(profiloA0))(profiloA0);
 var pA0 = MAP(pA0Map)(domain);
 //DRAW(pA0)
 
 
-/*
-var profiloB = [[1.4,0,0.7],[1.4,0.7,0.6],[1.4,0.7,0],[1.4,0.65,-0.9],[1.4,0,-1]]
-//var profiloB = [[0,0,0.7],[0,0.7,0.6],[0,0.7,0],[0,0.65,-0.9],[0,0,-1]]
-var pBMap = NUBS(S0)(2)(genKnots(profiloB))(profiloB);
-var pB = MAP(pBMap)(domain);
-DRAW(pB)
-*/
-
-//var profiloB = [[1.4,0,0.7],[1.4,0.915,0.9],[1.4,0.85,0],[1.4,0.85,0],[1.4,1,-1.2],[1.4,0,-1]]
-//RICONTROLLARE STI PUNTI
-var profiloB = [[1.4,0,0.8],[1.4,1.1,1],[1.4,1,0],[1.4,1,0],[1.5,1.1,-1.4],[1.5,0,-1.1]]
-var pBMap = NUBS(S0)(2)(genKnots(profiloB))(profiloB);
-var pB = MAP(pBMap)(domain);
-//DRAW(pB)
-
 var profiloBx = [[1.4,0,0.67],[1.4,0.8,0.67],[1.4,0.8,0.67],[1.4,0.875,0.67-0.35],[1.4,0.875,0.67-0.35],[1.4,0.8,-.95],[1.4,0.8,-.95],[1.4,0,-.95]]
 //var profiloB1 = [[0,0,0.35],[0,0.8,0.35],[0,0.8,0.35],[0,0.875,-0.4],[0,0.8,-1.1],[0,0.8,-1.1],[0,0,-1.1]]
 var pBxMap = NUBS(S0)(2)(genKnots(profiloBx))(profiloBx);
 var pBx = MAP(pBxMap)(domain);
-//DRAW(pBx)
+DRAW(pBx)
 /*
 var profiloBx = [[1.4,0,0.35],[1.4,0.8,0.35],[1.4,0.8,0.35],[1.4,0.875,-0.4],[1.4,0.8,-1.1],[1.4,0.8,-1.1],[1.4,0,-1.1]]
 //var profiloB1 = [[0,0,0.35],[0,0.8,0.35],[0,0.8,0.35],[0,0.875,-0.4],[0,0.8,-1.1],[0,0.8,-1.1],[0,0,-1.1]]
@@ -135,7 +115,7 @@ var pPortaAli1bis = MAP(pPortaAli1bisMap)(domain);
 
 var domain2 = DOMAIN([[0,1],[0,1]])([40,10]);
 
-var fusoliera1 = BEZIER(S1)([pA0Map,pAMap,pAMap,pAMap,pAMap,pBMap,pBMap,pBMap,pA1Map]);
+var fusoliera1 = BEZIER(S1)([pA0Map,pAMap,pAMap,pAMap,pBMap]);
 var mapFus1 = MAP(fusoliera1)(domain2);
 //DRAW(mapFus1)
 
@@ -146,6 +126,9 @@ var mapFus2 = MAP(fusoliera2)(domain2);
 var fusoliera3 = BEZIER(S1)([pCMap,pEMap,[13,0,1]]);
 var mapFus3 = MAP(fusoliera3)(domain2);
 //DRAW(mapFus3)
+
+var fusoliera4 = BEZIER(S1)([pBxMap,pBMap]);
+var mapFus4 = MAP(fusoliera4)(domain2);
 
 var Vetri1 = BEZIER(S1)([pVbase1Map,pVbase2Map]);
 var mapVetri1 = MAP(Vetri1)(domain2);
@@ -174,7 +157,7 @@ var PortaAli4 = BEZIER(S1)([pPortaAli2Map,[5.83,1,2]]);
 var mapPortaAli4 = MAP(PortaAli4)(domain2);
 //DRAW(mapPortaAli4)
 
-var smplxgrd = SIMPLEX_GRID([[-profiloC[0][0],(5.83-profiloC[0][0])],[-profiloC[0][1],profiloC[1][1]],[-profiloC[0][2],1.9-profiloC[0][2]]])
+var smplxgrd = SIMPLEX_GRID([[-profiloC[0][0],(5.7-profiloC[0][0])],[-profiloC[0][1],profiloC[1][1]],[-profiloC[0][2],1.9-profiloC[0][2]]])
 //DRAW(smplxgrd)
 
 var portaAli = STRUCT([mapPortaAli1,mapPortaAli2,mapPortaAli3,mapPortaAli4,smplxgrd])
@@ -182,14 +165,7 @@ var portaAli = STRUCT([mapPortaAli1,mapPortaAli2,mapPortaAli3,mapPortaAli4,smplx
 
 
 
-var top3 = BEZIER(S1)([pB2Map,[4.2,0,0]]);
-var maptop3 = MAP(top3)(domain2);
-//DRAW(maptop3)
 
-var top5 = BEZIER(S1)([pCMap,[4.2,0,0]]);
-var maptop5 = MAP(top5)(domain2);
-//DRAW(maptop5)
-
-var emifusoliera = STRUCT([portaAli,maptop5,maptop5,vetri,mapFus1,mapFus2,mapFus3])
+var emifusoliera = STRUCT([portaAli,vetri,mapFus1,mapFus2,mapFus3,mapFus4])
 var fusoliera = STRUCT([emifusoliera,S([1])([-1])(emifusoliera)])
 DRAW(fusoliera)
