@@ -685,4 +685,4 @@ var black = COLOR([1,1,1])(STRUCT([elica,barreAli,barraruote]))
 var ali = COLOR([1,1,0])(STRUCT([ali]))
 
 var aereo = STRUCT([carena,black,ali,ruote,COLOR([1,2,3,0.8])(vetri)])
-DRAW(T([1,2])([30,4])(R([0,1])(PI/4)(aereo)))
+DRAW(T([1,2])([30,4])(R([0,1])(PI/2)(aereo)))
