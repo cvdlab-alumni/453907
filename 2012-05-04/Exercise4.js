@@ -25,7 +25,7 @@ var domain = INTERVALS(1)(50)
 var profiloB = [[1.4,0,.8],[1.4,1,.75],[1.4,0.875,0.32],[1.4,.81,-.96],[1.4,.81,-.96],[1.4,0,-0.96],]
 var pBMap = NUBS(S0)(2)(genKnots(profiloB))(profiloB);
 var pB = MAP(pBMap)(domain);
-DRAW(pB)
+//DRAW(pB)
 
 var profiloA = pointsTransl( pointsScale(profiloB,1,1/2,2/3) ,-1.4,0,0)
 //var profiloA = [[0,0,0.54],[0,0.5,0.6],[0,0.5,0],[0,0.4,-0.6],[0,0,-0.7]]
@@ -44,7 +44,7 @@ var profiloBx = [[1.4,0,0.67],[1.4,0.8,0.67],[1.4,0.8,0.67],[1.4,0.875,0.67-0.35
 //var profiloB1 = [[0,0,0.35],[0,0.8,0.35],[0,0.8,0.35],[0,0.875,-0.4],[0,0.8,-1.1],[0,0.8,-1.1],[0,0,-1.1]]
 var pBxMap = NUBS(S0)(2)(genKnots(profiloBx))(profiloBx);
 var pBx = MAP(pBxMap)(domain);
-DRAW(pBx)
+//DRAW(pBx)
 /*
 var profiloBx = [[1.4,0,0.35],[1.4,0.8,0.35],[1.4,0.8,0.35],[1.4,0.875,-0.4],[1.4,0.8,-1.1],[1.4,0.8,-1.1],[1.4,0,-1.1]]
 //var profiloB1 = [[0,0,0.35],[0,0.8,0.35],[0,0.8,0.35],[0,0.875,-0.4],[0,0.8,-1.1],[0,0.8,-1.1],[0,0,-1.1]]
@@ -168,7 +168,7 @@ var portaAli = STRUCT([mapPortaAli1,mapPortaAli2,mapPortaAli3,mapPortaAli4,smplx
 
 var emifusoliera = STRUCT([portaAli,vetri,mapFus1,mapFus2,mapFus3,mapFus4])
 var fusoliera = STRUCT([emifusoliera,S([1])([-1])(emifusoliera)])
-DRAW(fusoliera)
+//DRAW(fusoliera)
 
 
 
@@ -231,7 +231,7 @@ var ala1 = COLOR([1,1,0])(T([0,1,2])([2.7,1,1.6])(S([0,2])([0.9,0.9])(surf1)))
 var ala2 = COLOR([1,1,0])(S([1])([-1])(T([0,1,2])([2.7,1,1.6])(S([0,2])([0.9,0.9])(surf1))))
 
 var ali = STRUCT([ala1,ala2])
-DRAW(ali)
+//DRAW(ali)
 
 
 
@@ -328,7 +328,7 @@ var centraleLevels = [[0.15,0,0],circonf,circonf,[-0.3,0,0]];
 var centraleS = NUBS(S1)(2)(genKnots(centraleLevels))(centraleLevels);
 var centraleMap = MAP(centraleS)(domain2);
 var elica = T([0,2])([profiloA0[0][0]-0.13,profiloA0[0][2]-0.1])(R([1,2])(PI/4)(STRUCT([Pale,centraleMap])))
-DRAW(elica)
+//DRAW(elica)
 
 
 
@@ -407,5 +407,230 @@ var surfHorizontalStab3 = MAP(sHorizontalStab3)(domain2);
 //stondare bordo
 var horizontalStab = R([0,1])(0)(STRUCT([surfHorizontalStab1,surfHorizontalStab2,surfHorizontalStab3]))
 
-var stabilizzatori = STRUCT([horizontalStab,verticalStab])
-DRAW(T([0,2])([11,1])(stabilizzatori))
+var stabilizzatori = T([0,2])([11,1])(STRUCT([horizontalStab,verticalStab]))
+//DRAW(T([0,2])([11,1])(stabilizzatori))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//SUPPORTI
+
+var domain = INTERVALS(1)(50)
+var domain2 = DOMAIN([[0,1],[0,1]])([40,10]);
+
+function genKnots (controls) {
+  var len = controls.length+3;
+  var knots = [];
+  knots[0] = 0;
+  knots[1] = 0;
+  knots[2] = 0;
+  for (var i = 3; i <= len-4; i++) {
+    knots[i] = i-2;
+  };
+  knots[len-1] = len-5;
+  knots[len-2] = len-5;
+  knots[len-3] = len-5;
+  return knots;
+};
+
+
+
+function circonferenzayz(r,dx,dy,dz){
+  var r = r || 0.2;
+  var m = 12;
+  var n = 12;
+  var dx = dx || 0;
+  var dy = dy || 0;
+  var dz = dz || 0;
+  
+  var domain = DOMAIN([[0,PI],[0,2*PI]])([m,n]);
+    var mapping = function (v) {
+      var u = v[0];
+      var r = 0.2;
+      return [dx, r * SIN(u*2*PI)+dy, r * COS(u*2*PI)+dz];
+    };
+    return mapping;
+  }
+
+  function circonferenzaxz(r,dx,dy,dz){
+  var r = r || 0.2;
+  var m = 12;
+  var n = 12;
+  var dx = dx || 0;
+  var dy = dy || 0;
+  var dz = dz || 0;
+  
+  var domain = DOMAIN([[0,PI],[0,2*PI]])([m,n]);
+    var mapping = function (v) {
+      var u = v[0];
+      var r = 0.2;
+      return [r * SIN(u*2*PI)+dx, dy, r * COS(u*2*PI)+dz];
+    };
+    return mapping;
+  }
+
+  function circonferenzaxy(r,dx,dy,dz){
+  var r = r || 0.2;
+  var m = 12;
+  var n = 12;
+  var dx = dx || 0;
+  var dy = dy || 0;
+  var dz = dz || 0;
+  
+  var domain = DOMAIN([[0,PI],[0,2*PI]])([m,n]);
+    var mapping = function (v) {
+      var u = v[0];
+      var r = 0.2;
+      return [r * SIN(u*2*PI)+dx, r * COS(u*2*PI)+dy, dz];
+    };
+    return mapping;
+  }
+
+  function circonferenzayz1(r,dx,dy,dz){
+  var r = r || 0.2;
+  var m = 12;
+  var n = 12;
+  var dx = dx || 0;
+  var dy = dy || 0;
+  var dz = dz || 0;
+  
+  var domain = DOMAIN([[0,PI],[0,2*PI]])([m,n]);
+    var mapping = function (v) {
+      var u = v[0];
+      var r = 0.2;
+      return [dx, r * COS(u*2*PI)+dy, r * SIN(u*2*PI)+dz];
+    };
+    return mapping;
+  }
+
+  function circonferenzaxz1(r,dx,dy,dz){
+  var r = r || 0.2;
+  var m = 12;
+  var n = 12;
+  var dx = dx || 0;
+  var dy = dy || 0;
+  var dz = dz || 0;
+  
+  var domain = DOMAIN([[0,PI],[0,2*PI]])([m,n]);
+    var mapping = function (v) {
+      var u = v[0];
+      var r = 0.2;
+      return [r * COS(u*2*PI)+dx , dy, r * SIN(u*2*PI)+dz];
+    };
+    return mapping;
+  }
+
+  function circonferenzaxy1(r,dx,dy,dz){
+  var r = r || 0.2;
+  var m = 12;
+  var n = 12;
+  var dx = dx || 0;
+  var dy = dy || 0;
+  var dz = dz || 0;
+  
+  var domain = DOMAIN([[0,PI],[0,2*PI]])([m,n]);
+    var mapping = function (v) {
+      var u = v[0];
+      var r = 0.2;
+      return [ r * COS(u*2*PI)+dx , r * SIN(u*2*PI)+dy , dz];
+    };
+    return mapping;
+  }
+
+
+
+
+
+var circle1 = circonferenzaxy1(0.2,3.5,7.5,1.7)
+var circle2 = circonferenzaxy1(0.2,4.5,7.5,1.7)
+var circle3 = circonferenzaxy1(0.2,4,0.8,-1)
+
+var barlevels1 = [circle1,circle1,circle3]
+var barlevels2 = [circle2,circle2,circle3]
+
+var bar1 = NUBS(S1)(2)(genKnots(barlevels1))(barlevels1);
+var bar2 = NUBS(S1)(2)(genKnots(barlevels2))(barlevels2);
+
+var barMap1 = MAP(bar1)(domain2);
+var barMap2 = MAP(bar2)(domain2);
+
+var barreAli = STRUCT([barMap1,barMap2,S([1])([-1])(barMap1),S([1])([-1])(barMap2)])
+
+//DRAW(barreAli)
+
+
+
+
+var circle1 = circonferenzaxy1(0.2,2.5,0.8,-1)
+var circle2 = circonferenzaxz1(0.2,2.5,1.8,-1.6)
+
+var barlevels1 = [circle1,circle1,circle2]
+
+var bar1 = NUBS(S1)(2)(genKnots(barlevels1))(barlevels1);
+
+var barMap1 = MAP(bar1)(domain2);
+
+var barraruote = STRUCT([barMap1,S([1])([-1])(barMap1)])
+
+//DRAW(barraruote)
+
+
+
+
+
+
+
+//ruota
+var gomma =   COLOR([0,0,0])(TORUS_SURFACE([0.15,0.35])([25,25]))
+var cerchione = COLOR([1,0,0])(TORUS_SURFACE([0.1,0.2])([25,25]))
+//var ruota1 =   R([1,2])(PI/2)(STRUCT([gomma,cerchione]))
+var ruota1 =   T([0,1,2])([2.5,1.8,-1.6])(R([1,2])(PI/2)(STRUCT([gomma,cerchione])))
+var ruote = STRUCT([ruota1,S([1])([-1])(ruota1)])
+
+//DRAW(ruote);
+
+var carena = COLOR([0.8,0.8,0.8])(STRUCT([fusoliera,stabilizzatori]))
+var black = COLOR([1,1,1])(STRUCT([elica,barreAli,barraruote]))
+var ali = COLOR([1,1,0])(STRUCT([ali]))
+
+var aereo = STRUCT([carena,black,ali,ruote])
+DRAW(aereo)
